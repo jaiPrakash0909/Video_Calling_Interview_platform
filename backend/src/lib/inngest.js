@@ -3,9 +3,9 @@ import { connectDB } from "./db.js";
 import User from "../models/User.js";
 
 
-export const innegest = new Inngest({ id: "interview-platform" });
+export const inngest = new Inngest({ id: "interview-platform" });
 
-const syncUser = Inngest.creatFunction(
+const syncUser = inngest.createFunction(
     {id:"sync-user"},
     {event:"clerk/user.created"},
     async ({event}) => {
@@ -26,7 +26,7 @@ const syncUser = Inngest.creatFunction(
     }
 )
 
-const deleteUserFromDB = Inngest.creatFunction(
+const deleteUserFromDB = inngest.createFunction(
     {id:"delete-user-from-db"},
     {event:"clerk/user.deleted"},
     async ({event}) => {
