@@ -1,29 +1,39 @@
-
 import express from "express";
-import path from "path"
-import {ENV} from "./lib/env.js"
-
+import path from "path";
+import { ENV } from "./lib/env.js";
+import { connect } from "http2";
+import { connectDB } from "./lib/db.js";
 
 const app = express();
 
-const __dirname = path.resolve()
+const __dirname = path.resolve();
 
-app.get("/health",(req,res) => {
-    res.status(200).json({msg:"success from backend"})
-})
+app.get("/health", (req, res) => {
+  res.status(200).json({ msg: "success from backend" });
+});
 
-app.get("/books",(req,res) => {
-    res.status(200).json({msg:"this is the book endpiont"})
-})
-
+app.get("/books", (req, res) => {
+  res.status(200).json({ msg: "this is the book endpiont" });
+});
 
 //make our app ready for development
-if(ENV.NODE_ENV === "production"){
-    app.use(express.static(path.join(__dirname,"../frontend/dist")))
+if (ENV.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-    app.get("/{*any}", (req, res) => {
-        res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"))
-    });
+  app.get("/{*any}", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  });
 }
 
-app.listen(ENV.PORT, () => console.log("Server is running on port",ENV.PORT)) 
+const startServer = async () => {
+  try {
+    await connectDB();
+    app.listen(ENV.PORT, () =>
+      console.log("Server is running on port", ENV.PORT),
+    );
+  } catch (error) {
+    console.error("Error starting the server",error)
+  }
+};
+
+startServer();
