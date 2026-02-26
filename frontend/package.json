@@ -11,15 +11,18 @@
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.61.1",
+    "@monaco-editor/react": "^4.7.0",
     "@tailwindcss/vite": "^4.1.14",
     "@tanstack/react-query": "^5.90.5",
     "axios": "^1.12.2",
+    "canvas-confetti": "^1.9.3",
     "install": "^0.13.0",
     "lucide-react": "^0.575.0",
     "npm": "^11.10.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-hot-toast": "^2.6.0",
+    "react-resizable-panels": "^3.0.6",
     "react-router": "^7.9.4",
     "stream-chat": "^9.35.1",
     "tailwindcss": "^4.1.14"
