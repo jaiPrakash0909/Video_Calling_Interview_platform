@@ -1,8 +1,8 @@
 import { chatClient, streamClient } from "../lib/stream.js";
 import Session from "../models/Session.js";
 
-export async function createSession(req,res) {
-try {
+export async function createSession(req, res) {
+  try {
     const { problem, difficulty } = req.body;
     const userId = req.user._id;
     const clerkId = req.user.clerkId;
@@ -40,11 +40,11 @@ try {
     res.status(500).json({ message: "Internal Server Error" });
   }
 }
-export async function getActiveSessions(req,res) {
-try {
+
+export async function getActiveSessions(_, res) {
+  try {
     const sessions = await Session.find({ status: "active" })
       .populate("host", "name profileImage email clerkId")
-      .populate("participant", "name profileImage email clerkId")
       .sort({ createdAt: -1 })
       .limit(20);
 
@@ -55,8 +55,8 @@ try {
   }
 }
 
-export async function getMyRecentSessions(req,res) {
-    try {
+export async function getMyRecentSessions(req, res) {
+  try {
     const userId = req.user._id;
 
     // get sessions where user is either host or participant
@@ -74,8 +74,8 @@ export async function getMyRecentSessions(req,res) {
   }
 }
 
-export async function getSessionById(req,res) {
-    try {
+export async function getSessionById(req, res) {
+  try {
     const { id } = req.params;
 
     const session = await Session.findById(id)
@@ -91,8 +91,8 @@ export async function getSessionById(req,res) {
   }
 }
 
-export async function joinSession(req,res) {
-    try {
+export async function joinSession(req, res) {
+  try {
     const { id } = req.params;
     const userId = req.user._id;
     const clerkId = req.user.clerkId;
@@ -125,8 +125,8 @@ export async function joinSession(req,res) {
   }
 }
 
-export async function endSession(req,res) {
-    try {
+export async function endSession(req, res) {
+  try {
     const { id } = req.params;
     const userId = req.user._id;
 
